@@ -1,7 +1,3 @@
 export default function FormFieldLayout({ children }) {
-  return (
-    <div className="flex flex-col gap-2 justify-start items-start">
-      {children}
-    </div>
-  );
+  return <div className="form-field-layout">{children}</div>;
 }

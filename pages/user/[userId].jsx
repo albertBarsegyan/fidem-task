@@ -1,24 +1,9 @@
-import { useRouter } from "next/router";
-import { useUser } from "../../src/context/users.context";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-export default function UserPage() {
-  const router = useRouter();
-  const { userId } = router.query;
-  const { users } = useUser();
+import { getUserById } from "../../src/services/getUserById";
 
-  const { firstName, lastName, email, phoneNumber, address } = users?.find(
-    (user) => user.id === userId
-  );
-
-  if (!firstName) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+export default function UserPage({ user }) {
+  const { firstName, lastName, email, phoneNumber, address } = user;
 
   return (
     <div className="w-full mt-20">
@@ -58,4 +43,13 @@ export default function UserPage() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { userId } = context.params;
+  const user = await getUserById(userId);
+
+  return {
+    props: { user },
+  };
 }

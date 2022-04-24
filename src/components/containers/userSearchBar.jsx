@@ -10,21 +10,20 @@ export default function UserSearchBar() {
   };
 
   const onChangeSearchVariant = (e) => {
-    const value = e.target.value;
-    handleSearchVariant(value);
+    handleSearchVariant(e.target.value);
   };
 
   return (
     <div className="w-full my-4">
-      <div className="w-full relative flex flex-row justify-center items-center w-1/2 mx-auto">
+      <div className="searchbar-wrapper">
         <input
-          className="w-full px-4 py-2 outline-0 border border-gray-700 text-gray-700"
-          placeholder="Type word, then press Enter"
+          className="searchbar-input"
+          placeholder="Type word"
           type="text"
           value={value}
           onChange={onChange}
         />
-        <div className="absolute right-2">
+        <div className="absolute right-2 ">
           <RegularDropdown
             value={searchBy}
             onChange={onChangeSearchVariant}

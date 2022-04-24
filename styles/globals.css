@@ -20,7 +20,7 @@ a {
 }
 
 .user-add-modal-wrapper {
-    @apply fixed top-0 bottom-0 left-0 w-full flex justify-center items-center bg-gray-900 bg-opacity-80;
+    @apply fixed top-0 bottom-0 left-0 overflow-y-auto w-full flex justify-center items-center bg-gray-900 bg-opacity-80;
 }
 
 .close-button {
@@ -29,4 +29,36 @@ a {
 
 .regular-input {
     @apply border bg-transparent border-white text-white outline-0 px-4 py-2
+}
+
+.searchbar-wrapper {
+    @apply w-full relative flex flex-row justify-center items-center w-full md:w-1/2 mx-auto
+}
+
+.searchbar-input {
+    @apply w-full px-4 py-2 outline-0 border border-gray-700 text-gray-700
+}
+
+.form-field-layout {
+    @apply flex flex-col gap-2 justify-start items-start
+}
+
+.profile-link {
+    @apply flex justify-center items-center text-purple-600 absolute top-0 bottom-0 left-0 w-full hover:bg-purple-600 hover:text-white
+}
+
+.table-edit-button {
+    @apply text-purple-600 absolute top-0 bottom-0 left-0 w-full hover:bg-purple-600 hover:text-white
+}
+
+.table-remove-button {
+    @apply text-red-500 absolute top-0 bottom-0 left-0 w-full hover:bg-red-500 hover:text-white
+}
+
+.user-table-header {
+    @apply w-full md:mx-auto md:w-10/12 flex flex-row justify-between items-center mb-4
+}
+
+.regular-table {
+    @apply table table-auto w-full md:w-10/12 md:mx-auto text-gray-700 border border-slate-500 rounded
 }

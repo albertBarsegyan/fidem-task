@@ -32,24 +32,16 @@ export default function UserTableRow({ userData }) {
             query: { userId: id },
           }}
         >
-          <a className="flex justify-center items-center text-purple-600 absolute top-0 bottom-0 left-0 w-full hover:bg-purple-600 hover:text-white">
-            Profile
-          </a>
+          <a className="profile-link">Profile</a>
         </Link>
       </td>
       <td className="border border-gray-700 text-center relative">
-        <button
-          className="text-purple-600 absolute top-0 bottom-0 left-0 w-full hover:bg-purple-600 hover:text-white"
-          onClick={handleEdit}
-        >
+        <button className="table-edit-button" onClick={handleEdit}>
           Edit
         </button>
       </td>
       <td className="border border-gray-700 text-center relative">
-        <button
-          className="text-red-500 absolute top-0 bottom-0 left-0 w-full hover:bg-red-500 hover:text-white"
-          onClick={handleDelete}
-        >
+        <button className="table-remove-button" onClick={handleDelete}>
           X
         </button>
       </td>
