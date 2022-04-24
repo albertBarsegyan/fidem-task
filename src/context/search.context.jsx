@@ -1,27 +1,30 @@
-import { createContext, useContext } from "react";
-import { SearchBy } from "../constants/searchVariants.constants";
-import searchReducer, { SearchActions } from "../reducers/userSearchReducer";
-import { useReducer } from "react";
+import {createContext, useContext} from "react";
+import {SearchBy} from "../constants/searchVariants.constants";
+import searchReducer, {SearchActions} from "../reducers/userSearch.reducer";
+import {useReducer} from "react";
 
 const SearchContext = createContext(null);
 
-function useSearchProvider() {
-  const initialState = {
-    searchBy: SearchBy[0].value,
-    value: "",
-  };
+const initialState = {
+  searchBy: SearchBy[0].value,
+  value: "",
+};
 
-  const [{ searchBy, value }, dispatch] = useReducer(
-    searchReducer,
-    initialState
+function useSearchProvider() {
+
+
+  const [{searchBy, value}, dispatch] = useReducer(
+      searchReducer,
+      initialState
   );
-  const { changeSearchVariant, changeValue } = SearchActions;
+
+  const {changeSearchVariant, changeValue} = SearchActions;
 
   const handleSearchVariant = (searchVariant) => {
-    dispatch({ type: changeSearchVariant, input: searchVariant });
+    dispatch({type: changeSearchVariant, input: searchVariant});
   };
   const handleValue = (value) => {
-    dispatch({ type: changeValue, input: value });
+    dispatch({type: changeValue, input: value});
   };
 
   return {
@@ -32,13 +35,13 @@ function useSearchProvider() {
   };
 }
 
-export default function SearchProvider({ children }) {
+export default function SearchProvider({children}) {
   const searchData = useSearchProvider();
 
   return (
-    <SearchContext.Provider value={searchData}>
-      {children}
-    </SearchContext.Provider>
+      <SearchContext.Provider value={searchData}>
+        {children}
+      </SearchContext.Provider>
   );
 }
 

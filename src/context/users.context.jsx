@@ -1,64 +1,58 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import {
-  getDataFromStorage,
-  saveDataToStorage,
-} from "../helpers/storage.helpers";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { nanoid } from "nanoid";
-import { SearchBy } from "../constants/searchVariants.constants";
+import { getUsersReq } from "../services/getUsers";
+import { addUserReq } from "../services/addUser";
+import { removeUserReq } from "../services/removeUser";
+import usersReducer, { UsersActions } from "../reducers/users.reducer";
+import { editUserReq } from "../services/editUser";
 
 const UsersContext = createContext(null);
 
 const useProvideUsers = () => {
-  const usersFromLocalStorage = getDataFromStorage("users") || [];
-  const [users, setUsers] = useState([]);
+  const [usersState, dispatch] = useReducer(usersReducer, {
+    users: [],
+    isLoading: false,
+    errorMessage: "",
+  });
 
-  const addUser = (userData) => {
+  const addUser = async (userData) => {
+    dispatch({ type: UsersActions.setLoading });
+
     const newUserData = { id: nanoid(), ...userData };
 
-    setUsers((prev) => {
-      prev.push(newUserData);
-      return prev;
-    });
+    const users = await addUserReq(newUserData);
 
-    saveDataToStorage("users", users);
+    dispatch({ type: UsersActions.setData, input: users });
   };
 
-  const removeUser = (userId) => {
-    const filteredUsers = users.filter(({ id }) => id !== userId);
-    setUsers(filteredUsers);
+  const removeUser = async (userId) => {
+    dispatch({ type: UsersActions.setLoading });
+    const filteredUsers = await removeUserReq(userId);
 
-    saveDataToStorage("users", filteredUsers);
+    dispatch({ type: UsersActions.setData, input: filteredUsers });
   };
 
-  const editUser = (userData) => {
-    const editedUsers = users.map((user) => {
-      if (user.id === userData.id) {
-        return {
-          ...user,
-          ...userData,
-        };
-      }
-      return user;
-    });
-
-    setUsers(editedUsers);
-    saveDataToStorage("users", editedUsers);
-  };
-
-  const getUserById = (id) => {
-    return users.find((user) => user.id === id);
+  const editUser = async (userData) => {
+    dispatch({ type: UsersActions.setLoading });
+    const usersRes = await editUserReq(userData);
+    dispatch({ type: UsersActions.setData, input: usersRes });
   };
 
   useEffect(() => {
-    setUsers(usersFromLocalStorage || []);
+    dispatch({ type: UsersActions.setLoading });
+    const usersData = getUsersReq();
+    usersData.then((res) => {
+      dispatch({ type: UsersActions.setData, input: res });
+    });
   }, []);
 
   return {
-    users,
+    users: usersState.users,
+    isLoading: usersState.isLoading,
+    errorMessage: usersState.errorMessage,
     addUser,
     removeUser,
     editUser,
-    getUserById,
   };
 };
 

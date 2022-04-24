@@ -13,9 +13,7 @@ export default function Home() {
       </Head>
 
       <MainLayout>
-        <main>
-          <UserTableContainer />
-        </main>
+        <UserTableContainer />
         <Footer />
       </MainLayout>
     </div>
