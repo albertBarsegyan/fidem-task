@@ -1,16 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.user-add-modal-wrapper {
+    @apply fixed top-0 bottom-0 left-0 w-full flex justify-center items-center bg-gray-900 bg-opacity-80;
+}
+
+.close-button {
+    @apply border border-red-600 text-red-600 px-4 py-3 hover:bg-red-600 hover:text-white
+}
+
+.regular-input {
+    @apply border bg-transparent border-white text-white outline-0 px-4 py-2
 }
